@@ -24,12 +24,17 @@ export default {
 // importo le variabili
 @import '@/style/variables.scss';
 .card{
-    // width è tutto il container diviso 5 per riga e -20 px di margini destra e sinistra
+// width è tutto il container diviso 5 per riga e -20 px di margini destra e sinistra
 width: calc(100% / 5 - 20px);
 padding: 20px;
 border-radius: 5px;
 margin: 10px;
 background-color: $pricipalitems;
+cursor: pointer;
+// effetto boxshadow in hover alla card
+&:hover{
+    box-shadow: 2px 2px 2px 2px greenyellow;
+}
 img{
     width: 100%;
     // altezza fissa immagini
