@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <header></header>
+    <!-- sezione header -->
+    <header-box></header-box>
+    <!-- sezione main -->
     <main-container :disks="disks">
+      <!-- sezione card box -->
       <card-box></card-box>
     </main-container>
   </div>
@@ -12,11 +15,14 @@
 import MainContainer from './components/MainContent.vue'
 // importo axios per effettuare chiamate api
 import axios from 'axios'
+// importo header
+import HeaderBox from './components/HeaderBox.vue'
 
 export default {
   name: 'App',
   components: {
-    MainContainer
+    MainContainer,
+    HeaderBox
   },
   data(){
     return{

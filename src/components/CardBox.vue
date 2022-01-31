@@ -29,7 +29,7 @@ width: calc(100% / 5 - 20px);
 padding: 20px;
 border-radius: 5px;
 margin: 10px;
-background-color: #2e3a46;
+background-color: $pricipalitems;
 img{
     width: 100%;
     // altezza fissa immagini
