@@ -8,7 +8,9 @@
 </template>
 
 <script>
+// importo componente  Maincontainer 
 import MainContainer from './components/MainContent.vue'
+// importo axios per effettuare chiamate api
 import axios from 'axios'
 
 export default {
@@ -18,6 +20,7 @@ export default {
   },
   data(){
     return{
+      // array di dischi
       disks:[],
     }
   },
@@ -32,5 +35,6 @@ export default {
 </script>
 
 <style lang="scss">
-
+// importo cartella main scss
+@import "./style/main.scss"
 </style>
