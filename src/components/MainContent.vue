@@ -20,5 +20,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.container{
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
 
+}
 </style>

@@ -1,0 +1,13 @@
+// importo il font
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+// reset
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+// body
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1e2d3b;
+}
