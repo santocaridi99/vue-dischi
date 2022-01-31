@@ -3,6 +3,7 @@
     <!-- sezione header -->
     <header-box></header-box>
     <!-- sezione main -->
+    <!-- avrà come props i dischi(disks) presenti nell'array disks -->
     <main-content :disks="disks">
       <!-- sezione card box -->
       <card-box></card-box>
