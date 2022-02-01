@@ -6,9 +6,12 @@
     <!-- genre chiamerà il metodo genreFilters in methods -->
     <!-- artist chiamerà artistFilter -->
     <filter-section @genre="genreFilter" @artist="artistFilter"></filter-section>
+    <!-- loader compare solo se flag loader è falso -->
+    <loader-content v-if="!flagLoader" ></loader-content>
     <!-- sezione main -->
+    <!-- compare solo se flagloader è vero -->
     <!-- avrà come props i dischi(disks)filtrati  presenti nell'array filteredDisks -->
-    <main-content :disks="filteredDisks">
+    <main-content v-else :disks="filteredDisks">
       <!-- sezione card box -->
       <card-box></card-box>
     </main-content>
@@ -24,6 +27,8 @@ import axios from "axios";
 import HeaderBox from "./components/HeaderBox.vue";
 // importo filtersection
 import FilterSection from "./components/FilterSection.vue";
+// importo loader content
+import LoaderContent from "./components/LoaderContent.vue"
 
 export default {
   name: "App",
@@ -31,6 +36,7 @@ export default {
     MainContent,
     HeaderBox,
     FilterSection,
+    LoaderContent
   },
   data() {
     return {
@@ -38,6 +44,8 @@ export default {
       disks: [],
       // array filtrato
       filteredDisks: [],
+      // flag per indicare il valore di loader
+      flagLoader:false
     };
   },
   methods: {
@@ -67,6 +75,8 @@ export default {
           this.disks = res.data.response;
           // stessa cosa filteredDisks
           this.filteredDisks = res.data.response;
+          // quando carica l'array diventa true
+          this.flagLoader=true;
         });
     }, 2000);
   },
