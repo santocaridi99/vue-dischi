@@ -3,11 +3,18 @@
     <!-- sezione header -->
     <header-box></header-box>
     <!-- sezione filter -->
+    <!-- genresarray corrisponderà a filteredgeneres -->
+    <!-- authors array corrisponderà a filtered authors -->
     <!-- genre chiamerà il metodo genreFilters in methods -->
     <!-- artist chiamerà artistFilter -->
-    <filter-section  @genre="genreFilter" @artist="artistFilter"></filter-section>
+    <filter-section
+      :genresArray="filteredGenres"
+      :authorsArray="filteredAuthors"
+      @genre="genreFilter"
+      @artist="artistFilter"
+    ></filter-section>
     <!-- loader compare solo se flag loader è falso -->
-    <loader-content v-if="!flagLoader" ></loader-content>
+    <loader-content v-if="!flagLoader"></loader-content>
     <!-- sezione main -->
     <!-- compare solo se flagloader è vero -->
     <!-- avrà come props i dischi(disks)filtrati  presenti nell'array filteredDisks -->
@@ -28,7 +35,7 @@ import HeaderBox from "./components/HeaderBox.vue";
 // importo filtersection
 import FilterSection from "./components/FilterSection.vue";
 // importo loader content
-import LoaderContent from "./components/LoaderContent.vue"
+import LoaderContent from "./components/LoaderContent.vue";
 
 export default {
   name: "App",
@@ -36,7 +43,7 @@ export default {
     MainContent,
     HeaderBox,
     FilterSection,
-    LoaderContent
+    LoaderContent,
   },
   data() {
     return {
@@ -45,7 +52,11 @@ export default {
       // array filtrato
       filteredDisks: [],
       // flag per indicare il valore di loader
-      flagLoader:false
+      flagLoader: false,
+      // array degli artisti filtrati
+      filteredAuthors: [],
+      // array dei generi filtrati
+      filteredGenres: [],
     };
   },
   methods: {
@@ -76,7 +87,19 @@ export default {
           // stessa cosa filteredDisks
           this.filteredDisks = res.data.response;
           // quando carica l'array diventa true
-          this.flagLoader=true;
+          this.flagLoader = true;
+          // pusho nell' array filteredGenres  i vari elementi filtrati per genere
+          this.disks.forEach((element) => {
+            if (!this.filteredGenres.includes(element.genre)) {
+              this.filteredGenres.push(element.genre);
+            }
+          });
+          // pusho nell' array filteredAuthors i vari elementi filtrati per autore
+          this.disks.forEach((element) => {
+            if (!this.filteredAuthors.includes(element.author)) {
+              this.filteredAuthors.push(element.author);
+            }
+          });
         });
     }, 2000);
   },
