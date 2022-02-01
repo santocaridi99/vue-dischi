@@ -4,7 +4,8 @@
     <header-box></header-box>
     <!-- sezione filter -->
     <!-- genre chiamerà il metodo genreFilters in methods -->
-    <filter-section @genre='genreFilter'></filter-section>
+    <!-- artist chiamerà artistFilter -->
+    <filter-section @genre="genreFilter" @artist="artistFilter"></filter-section>
     <!-- sezione main -->
     <!-- avrà come props i dischi(disks)filtrati  presenti nell'array filteredDisks -->
     <main-content :disks="filteredDisks">
@@ -36,19 +37,24 @@ export default {
       // array di dischi
       disks: [],
       // array filtrato
-      filteredDisks:[]
+      filteredDisks: [],
     };
   },
-  methods:{
+  methods: {
     // metodo per filtrare per genere
     // keyword corrisponderà al parametro che verrà passato dal figlio filteredsection
     // ovvero in questo caso selectedGenre
-    genreFilter(keyword){
-      this.filteredDisks=this.disks.filter((disk)=>{
-        return(disk.genre.includes(keyword))
-      })
-    }
-
+    genreFilter(keyword) {
+      this.filteredDisks = this.disks.filter((disk) => {
+        return disk.genre.includes(keyword);
+      });
+    },
+    // ugualmente metodo per filtrare gli artisti
+    artistFilter(keyword) {
+      this.filteredDisks = this.disks.filter((disk) => {
+        return disk.author.includes(keyword);
+      });
+    },
   },
   mounted() {
     // messo un set timeout così riempie l'array dopo due secondi
@@ -59,7 +65,8 @@ export default {
         .then((res) => {
           // dischi sarà uguale al response del data però dell'array di oggetti chiamato response
           this.disks = res.data.response;
-          this.filteredDisks=res.data.response
+          // stessa cosa filteredDisks
+          this.filteredDisks = res.data.response;
         });
     }, 2000);
   },
