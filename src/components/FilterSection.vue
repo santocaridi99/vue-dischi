@@ -1,5 +1,5 @@
 <template>
- <div class="container">
+ <div class="filterContainer">
   <!-- una select che accetta come v-model una variabile selectedgenre (genere selezionato) -->
   <!-- e al cambio chiama metodo select genre (seleziona genere) -->
   <select v-model="selectedGenre" @change="selectGenre">
@@ -57,4 +57,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/style/variables.scss';
+.filterContainer{
+  display: flex;
+  width: 1200px;
+  margin: 0 auto;
+  height: 60px;
+  justify-content: flex-end;
+  align-items: center;
+}
 </style>

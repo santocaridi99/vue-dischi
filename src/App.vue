@@ -5,7 +5,7 @@
     <!-- sezione filter -->
     <!-- genre chiamerà il metodo genreFilters in methods -->
     <!-- artist chiamerà artistFilter -->
-    <filter-section @genre="genreFilter" @artist="artistFilter"></filter-section>
+    <filter-section  @genre="genreFilter" @artist="artistFilter"></filter-section>
     <!-- loader compare solo se flag loader è falso -->
     <loader-content v-if="!flagLoader" ></loader-content>
     <!-- sezione main -->
