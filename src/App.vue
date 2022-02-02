@@ -3,15 +3,15 @@
     <!-- sezione header -->
     <header-box></header-box>
     <!-- sezione filter -->
-    <!-- genresarray corrisponderà a filteredgeneres -->
-    <!-- authors array corrisponderà a filtered authors -->
-    <!-- genre chiamerà il metodo genreFilters in methods -->
-    <!-- artist chiamerà artistFilter -->
+    <!-- genresarray in filtersection  chiamerà filteredgeneres -->
+    <!-- authors array in filtersection chiamerà filteredauthors -->
+    <!-- genre in filtersection , nella select dei generi,  chiamerà il metodo genreFilters in methods -->
+    <!-- artist in filtersection,nella select degli artisti, chiamerà artistFilter -->
     <filter-section
-      :genresArray="filteredGenres"
-      :authorsArray="filteredAuthors"
       @genre="genreFilter"
       @artist="artistFilter"
+      :genresArray="filteredGenres"
+      :authorsArray="filteredAuthors"
     ></filter-section>
     <!-- loader compare solo se flag loader è falso -->
     <loader-content v-if="!flagLoader"></loader-content>
@@ -53,10 +53,6 @@ export default {
       filteredDisks: [],
       // flag per indicare il valore di loader
       flagLoader: false,
-      // array degli artisti filtrati
-      filteredAuthors: [],
-      // array dei generi filtrati
-      filteredGenres: [],
     };
   },
   methods: {
@@ -65,14 +61,42 @@ export default {
     // ovvero in questo caso selectedGenre
     genreFilter(keyword) {
       this.filteredDisks = this.disks.filter((disk) => {
-        return disk.genre.includes(keyword);
+        return disk.genre.toLowerCase().includes(keyword);
       });
     },
     // ugualmente metodo per filtrare gli artisti
     artistFilter(keyword) {
       this.filteredDisks = this.disks.filter((disk) => {
-        return disk.author.includes(keyword);
+        return disk.author.toLowerCase().includes(keyword);
       });
+    },
+  },
+  // uso computed (getters variabili con funzioni intere che servono per prendere un valore che dipende da altro)
+  // e si autoaggiornano quando cambiano le dipendenze
+  computed: {
+    // esempio in questo caso queste funzioni dipendono dall'array disk che viene dall'api
+    // in caso cambiasse non avrei problemi a sfuttare il filter
+    filteredGenres() {
+      // array dei generi filtrati
+      let filteredGenres = [];
+      // pusho nell' array filteredGenres  i vari elementi filtrati per genere
+      this.disks.forEach((element) => {
+        if (!filteredGenres.includes(element.genre.toLowerCase())) {
+          filteredGenres.push(element.genre.toLowerCase());
+        }
+      });
+      return filteredGenres;
+    },
+    filteredAuthors() {
+      // array degli artisti filtrati
+      let filteredAuthors = [];
+      // pusho nell' array filteredAuthors i vari elementi filtrati per autore
+      this.disks.forEach((element) => {
+        if (!filteredAuthors.includes(element.author.toLowerCase())) {
+          filteredAuthors.push(element.author.toLowerCase());
+        }
+      });
+      return filteredAuthors;
     },
   },
   mounted() {
@@ -88,18 +112,6 @@ export default {
           this.filteredDisks = res.data.response;
           // quando carica l'array diventa true
           this.flagLoader = true;
-          // pusho nell' array filteredGenres  i vari elementi filtrati per genere
-          this.disks.forEach((element) => {
-            if (!this.filteredGenres.includes(element.genre)) {
-              this.filteredGenres.push(element.genre);
-            }
-          });
-          // pusho nell' array filteredAuthors i vari elementi filtrati per autore
-          this.disks.forEach((element) => {
-            if (!this.filteredAuthors.includes(element.author)) {
-              this.filteredAuthors.push(element.author);
-            }
-          });
         });
     }, 2000);
   },
